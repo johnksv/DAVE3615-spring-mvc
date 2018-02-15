@@ -7,6 +7,8 @@ import java.util.List;
 public interface UserDao {
     User findById(int id);
 
+    User getBySeries(String series);
+
     User findBySSO(String sso);
 
     void save(User user);
