@@ -23,4 +23,6 @@ public class AppConfiguration implements WebMvcConfigurer {
         return viewResolver;
     }
 
+
+
 }

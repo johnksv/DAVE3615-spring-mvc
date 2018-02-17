@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Qualifier("customUserDetailsService")
+    @Qualifier("userService")
     UserDetailsService userDetailsService;
 
     @Autowired
@@ -38,12 +38,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/", "/list")
+        http.authorizeRequests()
+                .antMatchers("/", "/list")
                 .access("hasRole('USER')")
                 .antMatchers("/newuser/**", "/delete-user-*")
-                .access("hasRole('ADMIN')").antMatchers("/edit-user-*")
-                .access("hasRole('ADMIN')").and().formLogin().loginPage("/login")
-                .loginProcessingUrl("/login").usernameParameter("ssoId").passwordParameter("password").and()
+                .access("hasRole('ADMIN')")
+                .antMatchers("/edit-user-*")
+                .access("hasRole('ADMIN')")
+                .and()
+                .formLogin().usernameParameter("ssoId").passwordParameter("password").and()
                 .rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository)
                 .tokenValiditySeconds(86400).and().csrf().and().exceptionHandling().accessDeniedPage("/Access_Denied");
     }

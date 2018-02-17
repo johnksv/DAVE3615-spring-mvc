@@ -8,7 +8,11 @@ public interface UserService {
 
     User findById(int id);
 
+    User findBySeries(String series);
+
     User findBySSO(String sso);
+
+    User findByUsername(String username);
 
     void saveUser(User user);
 

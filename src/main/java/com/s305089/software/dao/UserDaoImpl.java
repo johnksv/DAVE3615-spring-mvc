@@ -1,7 +1,7 @@
 package com.s305089.software.dao;
 
 import com.s305089.software.model.User;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ResultTreeType;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
@@ -13,11 +13,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 import java.util.List;
 
-import static org.apache.logging.log4j.LogManager.getRootLogger;
-
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao, PersistentTokenRepository {
-    private static final Logger log = getRootLogger();
+    private static final Logger log = LogManager.getRootLogger();
 
     @Override
     public User findById(int id) {
@@ -25,7 +23,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao, 
     }
 
     @Override
-    public User getBySeries(String series) {
+    public User findBySeries(String series) {
         Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("series", series));
         return (User) crit.uniqueResult();
@@ -36,6 +34,14 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao, 
         log.info("SSO : {}", sso);
         Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("ssoId", sso));
+        return (User) crit.uniqueResult();
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        log.info("Username : {}", username);
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("username", username));
         return (User) crit.uniqueResult();
     }
 
@@ -76,7 +82,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao, 
     @Override
     public void updateToken(String series, String tokenValue, Date lastUsed) {
         log.info("Updating Token for seriesId : {}", series);
-        User user = getBySeries(series);
+        User user = findBySeries(series);
         user.setToken(tokenValue);
         user.setLast_used(lastUsed);
         update(user);
