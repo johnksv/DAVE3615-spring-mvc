@@ -32,17 +32,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-        auth.authenticationProvider(authenticationProvider());
+        //auth.userDetailsService(userDetailsService);
+        //auth.authenticationProvider(authenticationProvider());
+        auth.inMemoryAuthentication()
+                .withUser("user").password("user").roles("USER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/testing")
+                .antMatchers("/**")
                 .permitAll()
                 .and()
-                .formLogin().usernameParameter("ssoId").passwordParameter("password");
+                .formLogin();//.usernameParameter("user").passwordParameter("password");
              /*   .antMatchers("/newuser/**", "/delete-user-*")
                 .access("hasRole('ADMIN')")
                 .antMatchers("/edit-user-*")

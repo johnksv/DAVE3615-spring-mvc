@@ -10,4 +10,7 @@ if [ -z "$id" ]; then
 	$CATALINA_HOME/bin/startup.sh
 fi
 
-mvn clean package && cp -f target/bank-asgmt2.war /usr/share/tomcat8/webapps/
+mvn clean package 
+echo "Copying war to $CATALINA_HOME/webapps/"
+cp -f target/bank-asgmt2.war $CATALINA_HOME/webapps/
+echo "done."
