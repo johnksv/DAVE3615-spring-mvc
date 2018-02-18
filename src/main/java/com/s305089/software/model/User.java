@@ -1,16 +1,14 @@
 package com.s305089.software.model;
 
 
-import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "APP_USER")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,19 +17,19 @@ public class User {
     @Column(name = "SSO_ID", unique = true, nullable = false)
     private String ssoId;
 
-    @NonNull
+    @NotNull
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @NonNull
+    @NotNull
     @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
 
-    @NonNull
+    @NotNull
     @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @NonNull
+    @NotNull
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
