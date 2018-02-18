@@ -25,7 +25,7 @@ public class TestController {
         user.setEmail("john@gmail.com");
         user.setFirstName("John");
         user.setLastName("Svergja");
-        user.setSsoId("123456789");
+        user.setUsername("123456789");
         userService.saveUser(user);
         return "ok";
     }

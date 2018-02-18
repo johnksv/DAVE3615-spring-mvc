@@ -35,16 +35,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User findBySeries(String series) {
-        return dao.findBySeries(series);
-    }
-
-    @Override
-    public User findBySSO(String sso) {
-        return dao.findBySSO(sso);
-    }
-
-    @Override
     public User findByUsername(String username) {
         return dao.findByUsername(username);
     }
@@ -59,7 +49,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void updateUser(User user) {
         User entity = dao.findById(user.getId());
         if (entity != null) {
-            entity.setSsoId(user.getSsoId());
+            entity.setUsername(user.getUsername());
             if (!user.getPassword().equals(entity.getPassword())) {
                 //entity.setPassword(passwordEncoder.encode(user.getPassword()));
                 entity.setPassword(user.getPassword());
@@ -71,8 +61,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void deleteUserBySSO(String sso) {
-        dao.deleteBySSO(sso);
+    public void deleteUserByUsername(String sso) {
+        dao.deleteByUsername(sso);
     }
 
     @Override
@@ -81,22 +71,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public boolean isUserSSOUnique(Integer id, String sso) {
-        User user = findBySSO(sso);
+    public boolean isUsernameUnique(Integer id, String sso) {
+        User user = findByUsername(sso);
         return (user == null || ((id != null) && (user.getId().equals(id))));
     }
 
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String sso) throws UsernameNotFoundException {
-        User user = findBySSO(sso);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = findByUsername(username);
         log.info("User : {}", user);
         if (user == null) {
             log.info("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
-        return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 true, true, true, true, getGrantedAuthorities(user));
     }
 

@@ -4,6 +4,9 @@ package com.s305089.software.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "APP_USER")
@@ -13,8 +16,8 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "SSO_ID", unique = true, nullable = false)
-    private String ssoId;
+    @Column(name = "USERNAME", unique = true, nullable = false)
+    private String username;
 
     @NotNull
     @Column(name = "PASSWORD", nullable = false)
@@ -32,20 +35,27 @@ public class User implements Serializable {
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
+    @Column(name = "ACCOUNTS")
+    @OneToMany(mappedBy = "owner",
+            fetch = FetchType.LAZY)
+    private Set<Account> accounts;
+
+    @Column(name = "LOANS")
+    @OneToMany(mappedBy = "owner",
+            fetch = FetchType.LAZY)
+    private Set<Loan> loans;
+
+
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getUsername() {
+        return username;
     }
 
-    public String getSsoId() {
-        return ssoId;
-    }
-
-    public void setSsoId(String ssoId) {
-        this.ssoId = ssoId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -80,38 +90,46 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((ssoId == null) ? 0 : ssoId.hashCode());
-        return result;
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public Set<Loan> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(Set<Loan> loans) {
+        this.loans = loans;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (!(obj instanceof User))
-            return false;
-        User other = (User) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (ssoId == null) {
-            return other.ssoId == null;
-        } else return ssoId.equals(other.ssoId);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(accounts, user.accounts) &&
+                Objects.equals(loans, user.loans);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, firstName, lastName, email, accounts, loans);
     }
 
     @Override
     public String toString() {
         //TODO: remove password from tostring
-        return "User [id=" + id + ", ssoId=" + ssoId + ", password=" +
+        return "User [id=" + id + ", username=" + username + ", password=" +
                 password
                 + ", firstName=" + firstName + ", lastName=" + lastName
                 + ", email=" + email + "]";
