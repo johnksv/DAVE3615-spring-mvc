@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @ComponentScan(basePackages = "com.s305089.software")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -39,9 +39,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/list")
-                .access("hasRole('USER')")
-                .antMatchers("/newuser/**", "/delete-user-*")
+                .antMatchers("/", "/testing")
+                .permitAll()
+                .and()
+                .formLogin().usernameParameter("ssoId").passwordParameter("password");
+             /*   .antMatchers("/newuser/**", "/delete-user-*")
                 .access("hasRole('ADMIN')")
                 .antMatchers("/edit-user-*")
                 .access("hasRole('ADMIN')")
@@ -49,6 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin().usernameParameter("ssoId").passwordParameter("password").and()
                 .rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository)
                 .tokenValiditySeconds(86400).and().csrf().and().exceptionHandling().accessDeniedPage("/Access_Denied");
+                */
     }
 
     @Bean
@@ -66,8 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PersistentTokenBasedRememberMeServices getPersistentTokenBasedRememberMeServices() {
-        PersistentTokenBasedRememberMeServices tokenBasedservice = new PersistentTokenBasedRememberMeServices("remember-me", userDetailsService, tokenRepository);
-        return tokenBasedservice;
+        return new PersistentTokenBasedRememberMeServices("remember-me", userDetailsService, tokenRepository);
     }
 
     @Bean

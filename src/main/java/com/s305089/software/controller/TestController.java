@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 
@@ -17,12 +18,7 @@ public class TestController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String sayHello(ModelMap model) {
-        return "index";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/testing", method = RequestMethod.GET)
     public String sayHelloAgain(ModelMap model) {
         User user = new User();
         user.setPassword("hello");
@@ -34,7 +30,7 @@ public class TestController {
         return "ok";
     }
 
-    @RequestMapping(value = "/asd", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String say(ModelMap model) {
         List<User> allUsers = userService.findAllUsers();
         if(allUsers.size() >0) {

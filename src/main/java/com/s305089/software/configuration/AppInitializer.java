@@ -4,6 +4,8 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
+    //Need this so Spring MVC and Spring Security plays well together
+
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[] {AppConfiguration.class};
