@@ -28,9 +28,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsService;
 
     @Autowired
-    PersistentTokenRepository tokenRepository;
-
-    @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         //auth.userDetailsService(userDetailsService);
         //auth.authenticationProvider(authenticationProvider());
@@ -67,11 +64,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
-    }
-
-    @Bean
-    public PersistentTokenBasedRememberMeServices getPersistentTokenBasedRememberMeServices() {
-        return new PersistentTokenBasedRememberMeServices("remember-me", userDetailsService, tokenRepository);
     }
 
     @Bean

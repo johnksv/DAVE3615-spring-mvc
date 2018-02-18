@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository("userDao")
-public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao, PersistentTokenRepository {
+public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
     private static final Logger log = LogManager.getRootLogger();
 
     @Override
@@ -68,50 +68,4 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao, 
         return (List<User>) criteria.list();
     }
 
-    @Override
-    public void createNewToken(PersistentRememberMeToken token) {
-        log.info("Creating Token for user : {}", token.getUsername());
-        User user = new User();
-        user.setUsername(token.getUsername());
-        user.setSeries(token.getSeries());
-        user.setToken(token.getTokenValue());
-        user.setLast_used(token.getDate());
-        persist(user);
-    }
-
-    @Override
-    public void updateToken(String series, String tokenValue, Date lastUsed) {
-        log.info("Updating Token for seriesId : {}", series);
-        User user = findBySeries(series);
-        user.setToken(tokenValue);
-        user.setLast_used(lastUsed);
-        update(user);
-    }
-
-    @Override
-    public PersistentRememberMeToken getTokenForSeries(String seriesId) {
-        log.info("Fetch Token if any for seriesId : {}", seriesId);
-        try {
-            Criteria crit = createEntityCriteria();
-            crit.add(Restrictions.eq("series", seriesId));
-            User user = (User) crit.uniqueResult();
-
-            return new PersistentRememberMeToken(user.getUsername(), user.getSeries(), user.getToken(), user.getLast_used());
-        } catch (Exception e) {
-            log.info("Token not found...");
-            return null;
-        }
-    }
-
-    @Override
-    public void removeUserTokens(String username) {
-        log.info("Removing Token if any for user : {}", username);
-        Criteria crit = createEntityCriteria();
-        crit.add(Restrictions.eq("username", username));
-        User user = (User) crit.uniqueResult();
-        if (user != null) {
-            log.info("rememberMe was selected");
-            delete(user);
-        }
-    }
 }
