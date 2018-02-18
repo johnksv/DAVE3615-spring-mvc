@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/account")
 public class AccountController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String say(ModelMap model) {
 
         model.addAttribute("user", "Hello world atr");
@@ -18,11 +18,11 @@ public class AccountController {
         return "account/info";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String deposit(@Validated Double amount,@Validated Double amountCent, @Validated Boolean deposit, ModelMap model){
+    @RequestMapping(method = RequestMethod.POST)
+    public String deposit(@Validated Double amount, @Validated Double amountCent, @Validated Boolean deposit, ModelMap model) {
         String type = deposit ? "Deposit " : "Withdraw ";
 
-        Double sum = amount + (amountCent/100);
+        Double sum = amount + (amountCent / 100);
         model.addAttribute("message", type + sum);
         model.addAttribute("user", "Hello world atr");
         return "account/info";

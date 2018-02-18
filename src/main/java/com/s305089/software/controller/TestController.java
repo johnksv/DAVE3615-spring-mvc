@@ -18,7 +18,7 @@ public class TestController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/testing", method = RequestMethod.GET)
+    @RequestMapping(value = "/populate", method = RequestMethod.GET)
     public String sayHelloAgain(ModelMap model) {
         User user = new User();
         user.setPassword("hello");
