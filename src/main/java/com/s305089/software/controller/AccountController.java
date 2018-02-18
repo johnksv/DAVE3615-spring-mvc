@@ -2,6 +2,7 @@ package com.s305089.software.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,18 +18,12 @@ public class AccountController {
         return "account/info";
     }
 
-    @RequestMapping(value = "/deposit", method = RequestMethod.POST)
-    public String deposit(Double amount, ModelMap model){
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String deposit(@Validated Double amount,@Validated Double amountCent, @Validated Boolean deposit, ModelMap model){
+        String type = deposit ? "Deposit " : "Withdraw ";
 
-        model.addAttribute("message", "Deposit " + amount);
-        model.addAttribute("user", "Hello world atr");
-        return "account/info";
-    }
-
-    @RequestMapping(value = "/withdraw", method = RequestMethod.POST)
-    public String withdraw(Double amount, ModelMap model){
-
-        model.addAttribute("message", "withdraw " + amount);
+        Double sum = amount + (amountCent/100);
+        model.addAttribute("message", type + sum);
         model.addAttribute("user", "Hello world atr");
         return "account/info";
     }

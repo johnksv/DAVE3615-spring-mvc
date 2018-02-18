@@ -23,17 +23,22 @@
 
 <p>${user}</p>
 
-<form:form action="./deposit">
+<form:form>
     <div class="form-group">
-        <input class="form-control" placeholder="Amount" name="amount" type="number">
+
+        <input class="form-control" min="0" placeholder="Amount" name="amount" type="number">
+        <input class="form-control cent" value="0" min="0" max="99" name="amountCent" type="number">
+        <input hidden value="true" name="deposit">
         <button type="submit" class="btn btn-success">Deposit</button>
     </div>
 </form:form>
 
 
-<form:form action="./withdraw">
+<form:form>
     <div class="form-group">
-        <input class="form-control" placeholder="Amount" name="amount" type="number">
+        <input class="form-control" min="0" placeholder="Amount" name="amount" type="number">
+        <input class="form-control cent" value="0" min="0" max="99" name="amountCent" type="number">
+        <input hidden value="false" name="deposit">
         <button type="submit" class="btn btn-success">Withdraw</button>
     </div>
 </form:form>
