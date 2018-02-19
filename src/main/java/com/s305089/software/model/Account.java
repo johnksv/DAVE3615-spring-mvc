@@ -20,6 +20,10 @@ public class Account implements Serializable {
     @Column(name = "AMOUNT", nullable = false)
     private Double amount;
 
+    @NotNull
+    @Column(name = "NAME", nullable = false)
+    private String name;
+
     public Integer getId() {
         return id;
     }
@@ -38,6 +42,14 @@ public class Account implements Serializable {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
