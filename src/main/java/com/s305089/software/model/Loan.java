@@ -27,6 +27,11 @@ public class Loan implements Serializable {
     @Column(name = "AMOUNT", nullable = false)
     private Double amount;
 
+    //How much has been payed on this loan
+    @NotNull
+    @Column(name = "PAYED_AMOUNT", nullable = false)
+    private Double payedAmount = 0d;
+
     @NotNull
     @Column(name = "RENT", nullable = false)
     private Double rent;
@@ -35,13 +40,13 @@ public class Loan implements Serializable {
     @Column(name = "START_DATE")
     private Date start;
 
-
+    //When is the whole loan payed back
     @Column(name = "END_DATE")
     private Date end;
 
-    @Column(name = "PAYBACKTIME")
+    @Column(name = "PAYOFF_TIME")
     @Min(0)
-    private Integer paybackTimeMonths;
+    private Integer payoffTimeMonths;
 
     public Integer getId() {
         return id;
@@ -71,6 +76,14 @@ public class Loan implements Serializable {
         this.amount = amount;
     }
 
+    public Double getPayedAmount() {
+        return payedAmount;
+    }
+
+    public void payOnLoan (Double amount) {
+        this.payedAmount += amount;
+    }
+
     public Double getRent() {
         return rent;
     }
@@ -95,12 +108,12 @@ public class Loan implements Serializable {
         this.end = end;
     }
 
-    public Integer getPaybackTimeMonths() {
-        return paybackTimeMonths;
+    public Integer getPayoffTimeMonths() {
+        return payoffTimeMonths;
     }
 
-    public void setPaybackTimeMonths(Integer paybackTimeMonths) {
-        this.paybackTimeMonths = paybackTimeMonths;
+    public void setPayoffTimeMonths(Integer payoffTimeMonths) {
+        this.payoffTimeMonths = payoffTimeMonths;
     }
 
     @Override
@@ -114,12 +127,12 @@ public class Loan implements Serializable {
                 Objects.equals(rent, loan.rent) &&
                 Objects.equals(start, loan.start) &&
                 Objects.equals(end, loan.end) &&
-                Objects.equals(paybackTimeMonths, loan.paybackTimeMonths);
+                Objects.equals(payoffTimeMonths, loan.payoffTimeMonths);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, owner, amount, rent, start, end, paybackTimeMonths);
+        return Objects.hash(id, owner, amount, rent, start, end, payoffTimeMonths);
     }
 }

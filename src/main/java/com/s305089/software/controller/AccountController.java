@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AccountController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public String say(ModelMap model) {
+    public String info(ModelMap model) {
 
         model.addAttribute("user", "Hello world atr");
 

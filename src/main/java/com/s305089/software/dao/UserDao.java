@@ -11,7 +11,7 @@ public interface UserDao {
 
     void save(User user);
 
-    void deleteByUsername(String sso);
+    void deleteByUsername(String username);
 
     List<User> findAllUsers();
 }

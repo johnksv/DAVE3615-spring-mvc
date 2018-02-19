@@ -13,7 +13,7 @@ class AbstractDao<PK extends Serializable, T> {
     private final Class<T> persistentClass;
 
     @SuppressWarnings("unchecked")
-    public AbstractDao() {
+    AbstractDao() {
         ParameterizedType superclass = (ParameterizedType) (this.getClass().getGenericSuperclass());
         this.persistentClass = (Class<T>) superclass.getActualTypeArguments()[1];
     }
@@ -26,23 +26,23 @@ class AbstractDao<PK extends Serializable, T> {
     }
 
     @SuppressWarnings("unchecked")
-    public T getByKey(PK key) {
+    T getByKey(PK key) {
         return getSession().get(persistentClass, key);
     }
 
-    public void persist(T entity) {
+    void persist(T entity) {
         getSession().persist(entity);
     }
 
-    public void update(T entity) {
+    void update(T entity) {
         getSession().update(entity);
     }
 
-    public void delete(T entity) {
+    void delete(T entity) {
         getSession().delete(entity);
     }
 
-    protected Criteria createEntityCriteria() {
+    Criteria createEntityCriteria() {
         return getSession().createCriteria(persistentClass);
 
         //TODO: Use this instead
