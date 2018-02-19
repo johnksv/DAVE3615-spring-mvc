@@ -18,6 +18,8 @@
             <h3>${item.name}</h3>
             <p>Current balance is</p>
             <span>${item.amount}</span>
+            <a class="btn btn-primary" href="./account/money?type=deposit&id=${item.id}">Deposit</a>
+            <a class="btn btn-primary" href="./account/money?type=withdraw&id=${item.id}">Withdraw</a>
         </c:forEach>
     </c:otherwise>
 </c:choose>
@@ -36,7 +38,6 @@
     </c:otherwise>
 </c:choose>
 <a class="btn btn-primary" href="./loan">See all loans</a>
-
 
 <h3>Options</h3>
 

@@ -42,4 +42,16 @@ public class AccountController {
         return "account/info";
     }
 
+    @RequestMapping(value = "new", method = RequestMethod.GET)
+    public String newAccount(ModelMap map) {
+        return "account/new";
+    }
+
+
+    @RequestMapping(value = "new", method = RequestMethod.POST)
+    public String newAccountPost(@Validated String name, ModelMap map) {
+        //TODO: Make new account
+        return "account/new";
+    }
+
 }
