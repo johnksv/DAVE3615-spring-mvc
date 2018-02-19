@@ -16,12 +16,17 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
     @Column(name = "USERNAME", unique = true, nullable = false)
     private String username;
 
     @NotNull
     @Column(name = "PASSWORD", nullable = false)
     private String password;
+
+    @NotNull
+    @Column(name = "SSN", unique = true, nullable = false)
+    private String SSN;
 
     @NotNull
     @Column(name = "FIRST_NAME", nullable = false)
@@ -127,10 +132,14 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        //TODO: remove password from tostring
-        return "User [id=" + id + ", username=" + username + ", password=" +
-                password
-                + ", firstName=" + firstName + ", lastName=" + lastName
-                + ", email=" + email + ", accounts" + (accounts.size()) + "]";
+        //TODO: REMOVE PASSWORD
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", SSN='" + SSN + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
