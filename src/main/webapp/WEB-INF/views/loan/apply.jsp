@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Loan</title>
+    <link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"/>
 </head>
 <body>
     <h1>Apply for a loan</h1>

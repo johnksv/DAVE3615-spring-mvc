@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Info</title>
+    <link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"/>
 </head>
 <body>
 <h1>Account summary</h1>
