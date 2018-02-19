@@ -39,8 +39,6 @@ public class HibernateConfiguration {
 
     private Properties hibernateProperties() {
         Properties props = new Properties();
-        //So hibernate creates the database schema for us.
-        props.put("hibernate.hbm2ddl.auto", "update");
         props.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
         props.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
         props.put("hibernate.format_sql", env.getRequiredProperty("hibernate.format_sql"));
@@ -51,7 +49,8 @@ public class HibernateConfiguration {
     public DataSource dataSource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         return builder.setType(EmbeddedDatabaseType.HSQL)
-                //.addScript("create-db.sql")
+                .addScript("create.sql")
+                .addScript("populate.sql")
                 .build();
     }
 
