@@ -1,5 +1,7 @@
 package com.s305089.software.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -37,10 +39,12 @@ public class Loan implements Serializable {
     private Double rent;
 
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "START_DATE")
     private Date start;
 
     //When is the whole loan payed back
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "END_DATE")
     private Date end;
 

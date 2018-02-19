@@ -39,6 +39,7 @@ public class HibernateConfiguration {
 
     private Properties hibernateProperties() {
         Properties props = new Properties();
+        //So hibernate creates the database schema for us.
         props.put("hibernate.hbm2ddl.auto", "update");
         props.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
         props.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));

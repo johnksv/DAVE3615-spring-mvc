@@ -8,17 +8,16 @@
 <body>
     <h1>Apply for a loan</h1>
 
-    <form method="post" action="./">
+    <form:form method="post"  modelAttribute="loan">
         <input class="form-control" min="0" max="100000000" placeholder="Amount" name="amount" type="number">
-        <select>
+        <select name="type" title="type">
             <c:forEach items="${loanTypes}" var="item">
                 <option value="${item}">${item.toString()}</option>
             </c:forEach>
         </select>
-        <input class="form-control" min="0" placeholder="Start date" name="start_date" type="date">
-        <input class="form-control" min="0" placeholder="Payoff time" name="payoff_time" type="number">
+        <input class="form-control" min="0" placeholder="Payoff time" name="payoffTimeMonths" type="number">
         <button type="submit" class="btn btn-success">Apply</button>
-    </form>
+    </form:form>
 
 </body>
 </html>
