@@ -2,6 +2,7 @@ package com.s305089.software.controller;
 
 import com.s305089.software.model.User;
 import com.s305089.software.service.UserService;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

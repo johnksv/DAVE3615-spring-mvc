@@ -19,6 +19,11 @@ public class Loan implements Serializable {
     private User owner;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TYPE", nullable = false)
+    private LoanType type;
+
+    @NotNull
     @Column(name = "AMOUNT", nullable = false)
     private Double amount;
 
@@ -48,6 +53,14 @@ public class Loan implements Serializable {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public LoanType getType() {
+        return type;
+    }
+
+    public void setType(LoanType type) {
+        this.type = type;
     }
 
     public Double getAmount() {

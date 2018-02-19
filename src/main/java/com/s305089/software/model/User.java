@@ -4,7 +4,9 @@ package com.s305089.software.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "APP_USER")
@@ -35,14 +37,13 @@ public class User implements Serializable {
 
     @Column(name = "ACCOUNTS")
     @OneToMany(mappedBy = "owner",
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();
 
     @Column(name = "LOANS")
     @OneToMany(mappedBy = "owner",
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     private Set<Loan> loans = new HashSet<>();
-
 
     public Integer getId() {
         return id;
@@ -130,6 +131,6 @@ public class User implements Serializable {
         return "User [id=" + id + ", username=" + username + ", password=" +
                 password
                 + ", firstName=" + firstName + ", lastName=" + lastName
-                + ", email=" + email + ", accounts" + (accounts == null ? "0" : accounts.size()) + "]";
+                + ", email=" + email + ", accounts" + (accounts.size()) + "]";
     }
 }
