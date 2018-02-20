@@ -40,7 +40,7 @@
             <div class="panel-header">
                 <h4>Apply for a custom loan</h4>
             </div>
-            <form:form action="custom" method="post" modelAttribute="loan">
+            <form:form action="./loan/custom" method="post" modelAttribute="loan">
                 <div class="form-group">
                     <label for="amount">Amount:</label>
                     <input class="form-control" min="0" max="100000000" placeholder="Amount" id="amount" name="amount"
@@ -55,9 +55,13 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="payoff">Payoff time:</label>
+                    <label for="payoff">Payoff time (months):</label>
                     <input class="form-control" min="0" placeholder="Payoff time" id="payoff" name="payoffTimeMonths"
                            type="number">
+                </div>
+                <div class="form-group">
+                    <label for="rent">Rent</label>
+                    <input class="form-control" value="15.5%" id="rent" readonly>
                 </div>
                 <button type="submit" class="btn btn-success">Apply</button>
             </form:form>

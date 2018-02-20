@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -57,10 +58,9 @@
                             <li class="list-group-item">Payed amount: ${item.payedAmount}</li>
                             <li class="list-group-item">Remaining Amount: ${item.amount - item.payedAmount}</li>
                             <li class="list-group-item">Rent: ${item.rent} %</li>
-                            <li class="list-group-item">Payoff time: ${item.payoffTimeMonths}
-                                months
+                            <li class="list-group-item">Payoff time: ${item.payoffTimeMonths} months
                             </li>
-                            <li class="list-group-item">Start: ${item.start} months</li>
+                            <li class="list-group-item">Start: ${item.start.toString()}</li>
                         </ul>
                     </div>
                 </div>

@@ -63,18 +63,20 @@ public class LoanController {
     }
 
     @RequestMapping(value = "custom", method = RequestMethod.POST)
-    public String applyCustom(@ModelAttribute Loan loan, BindingResult bindingResult) {
-        log.fatal("Testing fatal logging");
-        return "loan/apply";
+    public String applyCustom(@ModelAttribute Loan loanReq, BindingResult bindingResult, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        Loan loan = new Loan();
+        loan.setAmount(loanReq.getAmount());
+
+        loan.setType(loanReq.getType());
+        loan.setPayoffTimeMonths(loanReq.getPayoffTimeMonths());
+        loan.setOwner(user);
+        loan.setStart(new Date());
+        loan.setRent(15.5);
+
+        loanService.save(loan);
+        return "redirect:account";
     }
 
-    @ResponseBody
-    @RequestMapping(value = "calcInterest", method = RequestMethod.GET, produces = "text/plain")
-    public String calcInterest(Loan loan, ModelMap model) {
-        LoanType[] values = LoanType.values();
-        model.addAttribute("loanTypes", values);
-
-        return "loan/apply";
-    }
 
 }
