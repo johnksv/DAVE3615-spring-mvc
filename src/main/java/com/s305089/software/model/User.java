@@ -72,6 +72,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getSSN() {
+        return SSN;
+    }
+
+    public void setSSN(String SSN) {
+        this.SSN = SSN;
+    }
+
     public String getFirstName() {
         return firstName;
     }

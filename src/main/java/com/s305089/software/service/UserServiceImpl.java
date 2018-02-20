@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service("userService")
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void saveUser(User user) {
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         dao.save(user);
     }
 
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (entity != null) {
             entity.setUsername(user.getUsername());
             if (!user.getPassword().equals(entity.getPassword())) {
-                //entity.setPassword(passwordEncoder.encode(user.getPassword()));
+                entity.setPassword(passwordEncoder.encode(user.getPassword()));
                 entity.setPassword(user.getPassword());
             }
             entity.setFirstName(user.getFirstName());
@@ -91,7 +92,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(User user) {
-        List<GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
         log.info("authorities : {}", authorities);
         return authorities;
     }

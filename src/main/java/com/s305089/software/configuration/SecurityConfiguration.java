@@ -36,10 +36,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**")
+                .antMatchers("/")
                 .permitAll()
                 .and()
-                .formLogin();//.usernameParameter("user").passwordParameter("password");
+                .formLogin()
+                .defaultSuccessUrl("/account")
+                .failureUrl("/login?error")
+                .usernameParameter("username")
+                .passwordParameter("password");//.usernameParameter("user").passwordParameter("password");
              /*   .antMatchers("/newuser/**", "/delete-user-*")
                 .access("hasRole('ADMIN')")
                 .antMatchers("/edit-user-*")
