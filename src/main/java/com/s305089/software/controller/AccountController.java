@@ -1,15 +1,20 @@
 package com.s305089.software.controller;
 
 import com.s305089.software.model.Account;
+import com.s305089.software.model.Loan;
+import com.s305089.software.model.LoanType;
 import com.s305089.software.model.User;
+import com.s305089.software.service.LoanService;
 import com.s305089.software.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +25,10 @@ public class AccountController {
     @Autowired
     UserService userService;
 
+
+    @Autowired
+    LoanService loanService;
+
     private User user = null;
 
     @RequestMapping(method = RequestMethod.GET)
@@ -29,7 +38,20 @@ public class AccountController {
         //TODO: Return the current logged in user
         if (user == null) {
             user = userService.findAllUsers().get(0);
+            /*
+            Loan l = new Loan();
+            l.setAmount(12345d);
+            l.setOwner(user);
+            l.setPayoffTimeMonths(15);
+            l.setStart(new Date());
+            l.setType(LoanType.AUTO_LOAN);
+            l.setRent(5.5);
+
+            loanService.save(l);
+
+            user = userService.findAllUsers().get(0); */
         }
+
 
         model.addAttribute("user", user);
         model.addAttribute("account", user.getAccounts());
@@ -71,6 +93,26 @@ public class AccountController {
 
         map.addAttribute("formInfo", "Illegal name. Must only contain english letters and max two words.");
         return "account/new";
+    }
+
+    @RequestMapping(value = "transaction", method = RequestMethod.GET)
+    public String transaction(@Valid @RequestParam String type, @Valid @RequestParam Integer accountId,ModelMap map) {
+        if(type != null && accountId != null) {
+            if(type.equals("deposit")){
+
+            }else if(type.equals("withdraw")) {
+
+            }
+        }
+
+        return "account/transaction";
+    }
+
+    @RequestMapping(value = "transaction", method = RequestMethod.POST)
+    public String transactionPost(@Valid String type, @Valid Integer accountId, @Valid Double amount, ModelMap map) {
+
+
+        return "account/transaction";
     }
 
 }

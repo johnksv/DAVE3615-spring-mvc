@@ -25,8 +25,8 @@
                         <br>
                     </div>
                     <div class="panel-footer">
-                        <a class="btn btn-primary btn-md" href="./account/money?type=deposit&id=${item.id}">Deposit</a>
-                        <a class="btn btn-primary btn-md" href="./account/money?type=withdraw&id=${item.id}">Withdraw</a>
+                        <a class="btn btn-primary btn-md" href="./account/transaction?type=deposit&accountId=${item.id}">Deposit</a>
+                        <a class="btn btn-primary btn-md" href="./account/transaction?type=withdraw&accountId=${item.id}">Withdraw</a>
                     </div>
 
                 </div>
