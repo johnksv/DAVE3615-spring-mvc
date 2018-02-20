@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,33 +32,14 @@ public class AccountController {
     @Autowired
     LoanService loanService;
 
-    private User user = null;
-
     @RequestMapping(method = RequestMethod.GET)
     public String info(ModelMap model, Principal principal) {
-
-
-        //TODO: Return the current logged in user
-        if (user == null) {
-            user = userService.findAllUsers().get(0);
-
-        }
-
+        User user = userService.findByUsername(principal.getName());
 
         model.addAttribute("user", user);
         model.addAttribute("account", user.getAccounts());
         model.addAttribute("loan", user.getLoans());
 
-        return "account/info";
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public String deposit(@Valid Double amount, @Valid Double amountCent, @Valid Boolean deposit, ModelMap model) {
-        String type = deposit ? "Deposit " : "Withdraw ";
-
-        Double sum = amount + (amountCent / 100);
-        model.addAttribute("message", type + sum);
-        model.addAttribute("user", user);
         return "account/info";
     }
 
@@ -70,13 +52,14 @@ public class AccountController {
 
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public String newAccountPost(@Valid String name, ModelMap map) {
+    public String newAccountPost(@Valid String name, ModelMap map, Principal principal) {
         //TODO: Make new account
         Pattern pattern = Pattern.compile("^[a-zA-ZæøåÆØÅ]+\\s*[a-zA-ZæøåÆØÅ]*$");
         Matcher matcher = pattern.matcher(name);
         if (matcher.matches()) {
             Account account = new Account();
             account.setName(name);
+            User user = userService.findByUsername(principal.getName());
             user.addAccount(account);
             userService.saveUser(user);
             return "redirect:/account";
@@ -87,21 +70,35 @@ public class AccountController {
     }
 
     @RequestMapping(value = "transaction", method = RequestMethod.GET)
-    public String transaction(@Valid @RequestParam String type, @Valid @RequestParam Integer accountId,ModelMap map) {
-        if(type != null && accountId != null) {
-            if(type.equals("deposit")){
-
-            }else if(type.equals("withdraw")) {
-
+    public String transaction(@Valid @RequestParam String type, @Valid @RequestParam Integer accountId, ModelMap map) {
+        if (type != null && accountId != null) {
+            if (type.equals("deposit")) {
+                map.addAttribute("title", "Deposit");
+            } else if (type.equals("withdraw")) {
+                map.addAttribute("title", "Withdraw");
             }
         }
+
+        map.addAttribute("accountID", accountId);
 
         return "account/transaction";
     }
 
     @RequestMapping(value = "transaction", method = RequestMethod.POST)
-    public String transactionPost(@Valid String type, @Valid Integer accountId, @Valid Double amount, ModelMap map) {
+    public String transactionPost(@Valid String type, @Valid Integer accountId, @Valid Double amount, ModelMap map, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        Optional<Account> accountOpt = user.getAccounts().stream().filter(acc -> acc.getId().equals(accountId)).findFirst();
 
+        if (type != null && accountId != null && accountOpt.isPresent()) {
+            Account account = accountOpt.get();
+            if (type.equals("deposit")) {
+                Double newSum = account.getAmount() + amount;
+                account.setAmount(newSum);
+            } else if (type.equals("withdraw")) {
+                Double newSum = account.getAmount() - amount;
+                account.setAmount(newSum);
+            }
+        }
 
         return "account/transaction";
     }
