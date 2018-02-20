@@ -7,65 +7,55 @@
     <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>
 </head>
 <body>
-<h2>Welcome ${user.firstName}.</h2>
+<div class="container-fluid">
+    <h2>Welcome ${user.firstName}.</h2>
 
-<c:choose>
-    <c:when test="${empty account}">
-        <p>You have no accounts registered at the moment</p>
-    </c:when>
-    <c:otherwise>
-        <c:forEach items="${account}" var="item">
-            <h3>${item.name}</h3>
-            <p>Current balance is</p>
-            <span>${item.amount}</span>
-            <a class="btn btn-primary" href="./account/money?type=deposit&id=${item.id}">Deposit</a>
-            <a class="btn btn-primary" href="./account/money?type=withdraw&id=${item.id}">Withdraw</a>
-        </c:forEach>
-    </c:otherwise>
-</c:choose>
-<a class="btn btn-primary" href="./account/new">Make new account</a>
+    <c:choose>
+        <c:when test="${empty account}">
+            <p>You have no accounts registered at the moment</p>
+        </c:when>
+        <c:otherwise>
+            <c:forEach items="${account}" var="item">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4>Account: ${item.name}</h4></div>
+                    <div class="panel-body">
+                        <p>Current balance is</p>
+                        <span>${item.amount}</span>
 
-<h3>Loans</h3>
+                        <br>
+                    </div>
+                    <div class="panel-footer">
+                        <a class="btn btn-primary btn-md" href="./account/money?type=deposit&id=${item.id}">Deposit</a>
+                        <a class="btn btn-primary btn-md" href="./account/money?type=withdraw&id=${item.id}">Withdraw</a>
+                    </div>
 
-<c:choose>
-    <c:when test="${empty loan}">
-        <p>You have no loans.</p>
-    </c:when>
-    <c:otherwise>
-        <c:forEach items="${loan}" var="item">
-            <p>Loan info:</p>
-        </c:forEach>
-    </c:otherwise>
-</c:choose>
-<a class="btn btn-primary" href="./loan">See all loans</a>
-
-<h3>Options</h3>
-
-<h4>Deposit</h4>
-<form:form>
-    <div class="form-group">
-
-        <label for="amount">Amount</label>
-        <input class="form-control" min="0" placeholder="Amount" id="amount" name="amount" type="number">
-        <label for="cent">Cent</label>
-        <input class="form-control cent" value="0" min="0" max="99" id="cent" name="amountCent" type="number">
-        <input hidden value="true" name="deposit">
-        <button type="submit" class="btn btn-success">Deposit</button>
+                </div>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary" href="./account/new">Make new account</a>
+        </div>
     </div>
-</form:form>
 
+    <h3>Loans</h3>
 
-<h4>Withdraw</h4>
-<form:form>
-    <div class="form-group">
-        <label for="amountWith">Amount</label>
-        <input class="form-control" min="0" placeholder="Amount" id="amountWith" name="amount" type="number">
-        <label for="centWith">Cent</label>
-        <input class="form-control cent" value="0" min="0" max="99" id="centWith" name="amountCent" type="number">
-        <input hidden value="false" name="withdraw">
-        <button type="submit" class="btn btn-success">Withdraw</button>
+    <c:choose>
+        <c:when test="${empty loan}">
+            <p>You have no loans.</p>
+        </c:when>
+        <c:otherwise>
+            <c:forEach items="${loan}" var="item">
+                <p>Loan info:</p>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary" href="./loan">See all loans</a>
+        </div>
     </div>
-</form:form>
-
+</div>
 </body>
 </html>

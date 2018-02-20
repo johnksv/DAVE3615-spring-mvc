@@ -7,14 +7,18 @@
     <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>
 </head>
 <body>
-<h1>New account</h1>
-<form:form>
-    <label for="name">Account name</label>
-    <input class="form-control" id="name" type="text" name="name" pattern="[a-zA-ZæøåÆØÅ]+\s*[a-zA-ZæøåÆØÅ]*"/>
-    <c:if test="${not empty formInfo}">
-        ${formInfo}
-    </c:if>
-    <button type="submit" class="btn btn-success">Make account</button>
-</form:form>
+<div class="container-fluid">
+    <h1>New account</h1>
+    <form:form>
+        <div class="form-group">
+            <label for="name">Account name</label>
+            <input class="form-control" id="name" type="text" name="name" pattern="[a-zA-ZæøåÆØÅ]+\s*[a-zA-ZæøåÆØÅ]*"/>
+        </div>
+        <c:if test="${not empty formInfo}">
+            ${formInfo}
+        </c:if>
+        <button type="submit" class="btn btn-success">Make account</button>
+    </form:form>
+</div>
 </body>
 </html>
