@@ -7,6 +7,7 @@ import com.s305089.software.model.User;
 import com.s305089.software.service.LoanService;
 import com.s305089.software.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,7 +34,7 @@ public class AccountController {
     private User user = null;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String info(ModelMap model) {
+    public String info(ModelMap model, Principal principal) {
 
 
         //TODO: Return the current logged in user
