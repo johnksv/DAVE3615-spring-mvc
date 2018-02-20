@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.s305089.software.model.Account</OriginalElement>
+  <nodes>
+    <node x="262.0" y="2.0">com.s305089.software.model.User</node>
+    <node x="-388.0" y="77.0">com.s305089.software.model.LoanType</node>
+    <node x="-159.0" y="6.0">com.s305089.software.model.Loan</node>
+    <node x="676.0" y="44.0">com.s305089.software.model.Account</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="275.5" y="285.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

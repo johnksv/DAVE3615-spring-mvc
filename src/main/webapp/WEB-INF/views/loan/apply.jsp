@@ -40,6 +40,7 @@
         <div class="panel panel-default col-md-4">
             <div class="panel-header">
                 <h4>Apply for a custom loan</h4>
+                <i>For custom loans the rent is 15.5%</i>
             </div>
             <form:form action="${pageContext.request.contextPath}/loan/custom" method="post" modelAttribute="loan">
                 <div class="form-group">
