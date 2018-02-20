@@ -22,9 +22,7 @@
         <br>
         Password: mySecretPassword1
     </p>
-
-    <a class="btn btn-primary" href="./login">Log in</a>
-
+    <br>
 
     <hr>
     <p>toString of all users (for debug purposes):</p>
