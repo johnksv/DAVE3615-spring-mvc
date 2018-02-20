@@ -75,26 +75,30 @@ public class AccountController {
 
     @RequestMapping(value = "transaction", method = RequestMethod.GET)
     public String transaction(@Valid @RequestParam String type, @Valid @RequestParam Integer accountId, ModelMap map) {
-        if (type != null && accountId != null) {
+
+
+        if (type != null && accountId != null && accountService.exists(accountId)) {
             if (type.equals("deposit")) {
                 map.addAttribute("title", "Deposit");
             } else if (type.equals("withdraw")) {
                 map.addAttribute("title", "Withdraw");
             }
+
+            map.addAttribute("accountID", accountId);
+
+            return "account/transaction";
         }
 
-        map.addAttribute("accountID", accountId);
-
-        return "account/transaction";
+        //If any of the parameters are invalid
+        return "redirect:/account";
     }
 
     @RequestMapping(value = "transaction", method = RequestMethod.POST)
-    public String transactionPost(@Valid String type, @Valid Integer accountId, @Valid Double amount, ModelMap map, Principal principal) {
-        User user = userService.findByUsername(principal.getName());
-        Optional<Account> accountOpt = user.getAccounts().stream().filter(acc -> acc.getId().equals(accountId)).findFirst();
+    public String transactionPost(@Valid String type, @Valid Integer accountId, @Valid Double amount, ModelMap map) {
+        Account account = accountService.findById(accountId);
 
-        if (type != null && accountId != null && accountOpt.isPresent()) {
-            Account account = accountOpt.get();
+        if (type != null && account != null) {
+
             if (type.equals("deposit")) {
                 Double newSum = account.getAmount() + amount;
                 account.setAmount(newSum);
@@ -102,6 +106,8 @@ public class AccountController {
                 Double newSum = account.getAmount() - amount;
                 account.setAmount(newSum);
             }
+            accountService.save(account);
+            return "redirect:/account";
         }
 
         return "account/transaction";

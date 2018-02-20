@@ -1,24 +1,23 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>${title}</title>
+    <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>
 </head>
 <body>
 <div class="container-fluid">
 
-
+    <h3>${title}</h3>
     <div class="row">
         <form:form cssClass="col-md-6">
             <div class="form-group">
                 <label for="amount">Amount</label>
-                <input class="form-control" min="0" placeholder="Amount" id="amount" name="amount" type="number">
+                <input class="form-control" value="0" min="0" placeholder="Amount" id="amount" name="amount"  pattern="[0-9]+([\.,][0-9]+)?" step="0.01" type="number">
             </div>
-            <div class="form-group">
-                <label for="cent">Cent</label>
-                <input class="form-control cent" value="0" min="0" max="99" id="cent" name="amountCent" type="number">
-            </div>
-            <button type="submit" class="btn btn-success">Deposit</button>
+            <input hidden name="accountId" value="${accountID}"/>
+            <button type="submit" class="btn btn-success">${title}</button>
         </form:form>
     </div>
 </div>

@@ -22,4 +22,9 @@ public class AccountServiceImpl implements AccountService {
     public void save(Account account) {
         dao.save(account);
     }
+
+    @Override
+    public boolean exists(int accountId) {
+        return findById(accountId) != null;
+    }
 }
