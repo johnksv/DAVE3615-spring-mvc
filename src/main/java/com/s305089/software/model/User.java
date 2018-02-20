@@ -130,14 +130,12 @@ public class User implements Serializable {
                 Objects.equals(password, user.password) &&
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(accounts, user.accounts) &&
-                Objects.equals(loans, user.loans);
+                Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, firstName, lastName, email, accounts, loans);
+        return Objects.hash(id, username, password, firstName, lastName, email);
     }
 
     @Override
@@ -150,6 +148,8 @@ public class User implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", account='" + accounts.size() + '\'' +
+                ", loan='" + loans.size() + '\'' +
                 '}';
     }
 }

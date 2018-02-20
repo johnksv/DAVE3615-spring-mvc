@@ -136,7 +136,6 @@ public class Loan implements Serializable {
         if (!(o instanceof Loan)) return false;
         Loan loan = (Loan) o;
         return Objects.equals(id, loan.id) &&
-                Objects.equals(owner, loan.owner) &&
                 Objects.equals(amount, loan.amount) &&
                 Objects.equals(rent, loan.rent) &&
                 Objects.equals(start, loan.start) &&
@@ -147,6 +146,6 @@ public class Loan implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, owner, amount, rent, start, end, payoffTimeMonths);
+        return Objects.hash(id, amount, rent, start, end, payoffTimeMonths);
     }
 }

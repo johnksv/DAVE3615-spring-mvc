@@ -1,9 +1,11 @@
 package com.s305089.software.controller;
 
+import com.s305089.software.dao.AccountDao;
 import com.s305089.software.model.Account;
 import com.s305089.software.model.Loan;
 import com.s305089.software.model.LoanType;
 import com.s305089.software.model.User;
+import com.s305089.software.service.AccountService;
 import com.s305089.software.service.LoanService;
 import com.s305089.software.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class AccountController {
     @Autowired
     LoanService loanService;
 
+    @Autowired
+    AccountService accountService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String info(ModelMap model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
@@ -53,15 +58,14 @@ public class AccountController {
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
     public String newAccountPost(@Valid String name, ModelMap map, Principal principal) {
-        //TODO: Make new account
         Pattern pattern = Pattern.compile("^[a-zA-ZæøåÆØÅ]+\\s*[a-zA-ZæøåÆØÅ]*$");
         Matcher matcher = pattern.matcher(name);
         if (matcher.matches()) {
+            User user = userService.findByUsername(principal.getName());
             Account account = new Account();
             account.setName(name);
-            User user = userService.findByUsername(principal.getName());
-            user.addAccount(account);
-            userService.saveUser(user);
+            account.setOwner(user);
+            accountService.save(account);
             return "redirect:/account";
         }
 
