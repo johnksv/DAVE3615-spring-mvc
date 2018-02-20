@@ -38,18 +38,7 @@ public class AccountController {
         //TODO: Return the current logged in user
         if (user == null) {
             user = userService.findAllUsers().get(0);
-            /*
-            Loan l = new Loan();
-            l.setAmount(12345d);
-            l.setOwner(user);
-            l.setPayoffTimeMonths(15);
-            l.setStart(new Date());
-            l.setType(LoanType.AUTO_LOAN);
-            l.setRent(5.5);
 
-            loanService.save(l);
-
-            user = userService.findAllUsers().get(0); */
         }
 
 
@@ -73,7 +62,7 @@ public class AccountController {
     @RequestMapping(value = "new", method = RequestMethod.GET)
     public String newAccount(ModelMap map) {
 
-        map.addAttribute("formInfo", "Illegal name. Must only contain english letters and max two words.");
+        map.addAttribute("formInfo", "The name can only contain english letters and max two words.");
         return "account/new";
     }
 

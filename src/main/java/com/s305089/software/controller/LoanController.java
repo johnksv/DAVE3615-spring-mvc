@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -34,7 +35,21 @@ public class LoanController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String apply(@ModelAttribute Loan loan, BindingResult bindingResult) {
+    public String apply(@Valid Integer loanId) {
+        Loan loan = loanService.findById(loanId);
+        Loan newLoan = new Loan();
+        newLoan.setAmount(loan.getAmount());
+        newLoan.setRent(loan.getRent());
+        newLoan.setType(loan.getType());
+        newLoan.setPayoffTimeMonths(loan.getPayoffTimeMonths());
+
+        //TODO: Assign to current loged in user
+
+        return "loan/apply";
+    }
+
+    @RequestMapping(value = "custom", method = RequestMethod.POST)
+    public String applyCustom(@ModelAttribute Loan loan, BindingResult bindingResult) {
         log.fatal("Testing fatal logging");
         return "loan/apply";
     }

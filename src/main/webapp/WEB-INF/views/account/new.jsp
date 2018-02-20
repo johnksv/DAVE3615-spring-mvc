@@ -16,6 +16,7 @@
         </div>
         <c:if test="${not empty formInfo}">
             ${formInfo}
+            <br>
         </c:if>
         <button type="submit" class="btn btn-success">Make account</button>
     </form:form>

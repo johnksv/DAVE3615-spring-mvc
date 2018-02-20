@@ -27,9 +27,8 @@
                     </li>
                 </ul>
 
-
                     <form:form>
-                        <input hidden name="loan" value="${item.id}"/>
+                        <input hidden name="loanId" value="${item.id}"/>
                         <button type="submit" class="btn btn-success">Apply</button>
                     </form:form>
 
@@ -41,7 +40,7 @@
             <div class="panel-header">
                 <h4>Apply for a custom loan</h4>
             </div>
-            <form:form method="post" modelAttribute="loan">
+            <form:form action="custom" method="post" modelAttribute="loan">
                 <div class="form-group">
                     <label for="amount">Amount:</label>
                     <input class="form-control" min="0" max="100000000" placeholder="Amount" id="amount" name="amount"
