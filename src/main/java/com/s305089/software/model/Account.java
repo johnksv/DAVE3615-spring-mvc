@@ -13,12 +13,12 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     private User owner;
 
     @NotNull
     @Column(name = "AMOUNT", nullable = false)
-    private Double amount;
+    private Double amount = 0d;
 
     @NotNull
     @Column(name = "NAME", nullable = false)

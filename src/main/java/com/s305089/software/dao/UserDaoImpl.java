@@ -29,7 +29,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
     @Override
     public void save(User user) {
-        persist(user);
+        merge(user);
     }
 
     @Override

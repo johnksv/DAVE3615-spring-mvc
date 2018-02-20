@@ -17,7 +17,7 @@ public class Loan implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     private User owner;
 
     @NotNull

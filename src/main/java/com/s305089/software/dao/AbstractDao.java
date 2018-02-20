@@ -30,8 +30,8 @@ class AbstractDao<PK extends Serializable, T> {
         return getSession().get(persistentClass, key);
     }
 
-    void persist(T entity) {
-        getSession().persist(entity);
+    void merge(T entity) {
+        getSession().merge(entity);
     }
 
     void update(T entity) {

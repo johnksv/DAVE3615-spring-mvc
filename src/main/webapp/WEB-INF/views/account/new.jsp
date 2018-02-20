@@ -10,7 +10,10 @@
 <h1>New account</h1>
 <form:form>
     <label for="name">Account name</label>
-    <input class="form-control" id="name" type="text" name="name"/>
+    <input class="form-control" id="name" type="text" name="name" pattern="[a-zA-ZæøåÆØÅ]+\s*[a-zA-ZæøåÆØÅ]*"/>
+    <c:if test="${not empty formInfo}">
+        ${formInfo}
+    </c:if>
     <button type="submit" class="btn btn-success">Make account</button>
 </form:form>
 </body>

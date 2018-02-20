@@ -42,12 +42,14 @@ public class User implements Serializable {
 
     @Column(name = "ACCOUNTS")
     @OneToMany(mappedBy = "owner",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
     private Set<Account> accounts = new HashSet<>();
 
     @Column(name = "LOANS")
     @OneToMany(mappedBy = "owner",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
     private Set<Loan> loans = new HashSet<>();
 
     public Integer getId() {
@@ -98,8 +100,8 @@ public class User implements Serializable {
         return accounts;
     }
 
-    public void setAccounts(Set<Account> accounts) {
-        this.accounts = accounts;
+    public void addAccount(Account account) {
+        this.accounts.add(account);
     }
 
     public Set<Loan> getLoans() {
