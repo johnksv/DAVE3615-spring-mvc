@@ -8,6 +8,8 @@
     <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>
 </head>
 <body>
+<jsp:include page="../menu.jsp" />
+
 <div class="container-fluid">
     <h2>Welcome ${user.firstName}.</h2>
 
@@ -27,9 +29,9 @@
                     </div>
                     <div class="panel-footer">
                         <a class="btn btn-primary btn-md"
-                           href="./account/transaction?type=deposit&accountId=${item.id}">Deposit</a>
+                           href="${pageContext.request.contextPath}/account/transaction?type=deposit&accountId=${item.id}">Deposit</a>
                         <a class="btn btn-primary btn-md"
-                           href="./account/transaction?type=withdraw&accountId=${item.id}">Withdraw</a>
+                           href="${pageContext.request.contextPath}/account/transaction?type=withdraw&accountId=${item.id}">Withdraw</a>
                     </div>
 
                 </div>
@@ -38,7 +40,7 @@
     </c:choose>
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-primary" href="./account/new">Make new account</a>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/account/new">Make new account</a>
         </div>
     </div>
 
@@ -69,9 +71,12 @@
     </c:choose>
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-primary" href="./loan">See all loans</a>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/loan">See all loans</a>
         </div>
     </div>
 </div>
+<script>
+    document.getElementsByClassName("navbar-nav")[0].children[1].className = "active";
+</script>
 </body>
 </html>

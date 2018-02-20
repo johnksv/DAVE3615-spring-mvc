@@ -5,6 +5,8 @@
     <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>
 </head>
 <body>
+
+<jsp:include page="menu.jsp"/>
 <div class="container-fluid">
     <h2>Welcome</h2>
     <p>This is assignment 2 in DAVE3615 Software Architecture and Frameworks</p>
@@ -22,5 +24,8 @@
     <p>${user}</p>
 
 </div>
+<script>
+    document.getElementsByClassName("navbar-nav")[0].children[0].className = "active";
+</script>
 </body>
 </html>

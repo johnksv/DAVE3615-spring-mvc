@@ -7,6 +7,7 @@
     <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>
 </head>
 <body>
+<jsp:include page="../menu.jsp" />
 <div class="container-fluid">
     <h1>Apply for a loan</h1>
     <p>We offer 2 different loans. It is also possible to apply for a custom loan.</p>
@@ -40,7 +41,7 @@
             <div class="panel-header">
                 <h4>Apply for a custom loan</h4>
             </div>
-            <form:form action="./loan/custom" method="post" modelAttribute="loan">
+            <form:form action="${pageContext.request.contextPath}/loan/custom" method="post" modelAttribute="loan">
                 <div class="form-group">
                     <label for="amount">Amount:</label>
                     <input class="form-control" min="0" max="100000000" placeholder="Amount" id="amount" name="amount"
@@ -68,5 +69,8 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementsByClassName("navbar-nav")[0].children[2].className = "active";
+</script>
 </body>
 </html>

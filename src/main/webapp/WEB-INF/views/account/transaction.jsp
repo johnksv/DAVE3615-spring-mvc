@@ -7,6 +7,7 @@
     <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>
 </head>
 <body>
+<jsp:include page="../menu.jsp" />
 <div class="container-fluid">
 
     <h3>${title}</h3>
@@ -21,5 +22,8 @@
         </form:form>
     </div>
 </div>
+<script>
+    document.getElementsByClassName("navbar-nav")[0].children[1].className = "active";
+</script>
 </body>
 </html>
