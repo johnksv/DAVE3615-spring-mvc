@@ -25,8 +25,10 @@
                         <br>
                     </div>
                     <div class="panel-footer">
-                        <a class="btn btn-primary btn-md" href="./account/transaction?type=deposit&accountId=${item.id}">Deposit</a>
-                        <a class="btn btn-primary btn-md" href="./account/transaction?type=withdraw&accountId=${item.id}">Withdraw</a>
+                        <a class="btn btn-primary btn-md"
+                           href="./account/transaction?type=deposit&accountId=${item.id}">Deposit</a>
+                        <a class="btn btn-primary btn-md"
+                           href="./account/transaction?type=withdraw&accountId=${item.id}">Withdraw</a>
                     </div>
 
                 </div>
@@ -47,7 +49,21 @@
         </c:when>
         <c:otherwise>
             <c:forEach items="${loan}" var="item">
-                <p>Loan info:</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading"><b>Loan of type: ${item.type}</b></div>
+                    <div class="panel-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Amount: ${item.amount}</li>
+                            <li class="list-group-item">Payed amount: ${item.payedAmount}</li>
+                            <li class="list-group-item">Remaining Amount: ${item.amount - item.payedAmount}</li>
+                            <li class="list-group-item">Rent: ${item.rent} %</li>
+                            <li class="list-group-item">Payoff time: ${item.payoffTimeMonths}
+                                months
+                            </li>
+                            <li class="list-group-item">Start: ${item.start} months</li>
+                        </ul>
+                    </div>
+                </div>
             </c:forEach>
         </c:otherwise>
     </c:choose>

@@ -52,15 +52,6 @@ public class Loan implements Serializable {
     @Min(0)
     private Integer payoffTimeMonths;
 
-    public Loan() {
-    }
-
-    public Loan(@NotNull LoanType type, @NotNull Double amount, @NotNull Double rent, @Min(0) Integer payoffTimeMonths) {
-        this.type = type;
-        this.amount = amount;
-        this.rent = rent;
-        this.payoffTimeMonths = payoffTimeMonths;
-    }
 
     public Integer getId() {
         return id;

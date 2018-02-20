@@ -1,15 +1,11 @@
 package com.s305089.software.controller;
 
-import com.s305089.software.dao.AccountDao;
 import com.s305089.software.model.Account;
-import com.s305089.software.model.Loan;
-import com.s305089.software.model.LoanType;
 import com.s305089.software.model.User;
 import com.s305089.software.service.AccountService;
 import com.s305089.software.service.LoanService;
 import com.s305089.software.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Date;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,7 +23,6 @@ public class AccountController {
 
     @Autowired
     UserService userService;
-
 
     @Autowired
     LoanService loanService;

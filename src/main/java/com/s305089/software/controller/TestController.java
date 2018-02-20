@@ -47,9 +47,7 @@ public class TestController {
         user.getAccounts().add(new Account());
         userService.saveUser(user);
 
-        Loan a = new Loan(LoanType.STUDENT_LOAN, 190500.00,5.4, 96);
 
-        loanService.save(a);
 
         log.fatal(passwordEncoder.encode("hello"));
 

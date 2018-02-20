@@ -2,7 +2,9 @@ package com.s305089.software.controller;
 
 import com.s305089.software.model.Loan;
 import com.s305089.software.model.LoanType;
+import com.s305089.software.model.User;
 import com.s305089.software.service.LoanService;
+import com.s305089.software.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/loan")
@@ -21,13 +26,17 @@ public class LoanController {
     private static final Logger log = LogManager.getRootLogger();
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     LoanService loanService;
 
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(ModelMap model) {
         LoanType[] values = LoanType.values();
-        List<Loan> loans = loanService.findAllLoans();
+        //Loans without owner is the "template"-loans. Another solution is to add a field on the loan model; "boolean template"
+        List<Loan> loans = loanService.findAllLoans().stream().filter(loan -> loan.getOwner() == null).collect(Collectors.toList());
         model.addAttribute("loanTypes", values);
         model.addAttribute("loans", loans);
         model.addAttribute("loan", new Loan());
@@ -35,17 +44,22 @@ public class LoanController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String apply(@Valid Integer loanId) {
-        Loan loan = loanService.findById(loanId);
-        Loan newLoan = new Loan();
-        newLoan.setAmount(loan.getAmount());
-        newLoan.setRent(loan.getRent());
-        newLoan.setType(loan.getType());
-        newLoan.setPayoffTimeMonths(loan.getPayoffTimeMonths());
+    public String apply(@Valid Integer loanId, Principal principal) {
+        Loan oldLoan = loanService.findById(loanId);
 
-        //TODO: Assign to current loged in user
+        User user = userService.findByUsername(principal.getName());
 
-        return "loan/apply";
+        Loan loan = new Loan();
+        loan.setAmount(oldLoan.getAmount());
+        loan.setRent(oldLoan.getRent());
+        loan.setType(oldLoan.getType());
+        loan.setPayoffTimeMonths(oldLoan.getPayoffTimeMonths());
+        loan.setOwner(user);
+        loan.setStart(new Date());
+
+        loanService.save(loan);
+
+        return "redirect:account";
     }
 
     @RequestMapping(value = "custom", method = RequestMethod.POST)
