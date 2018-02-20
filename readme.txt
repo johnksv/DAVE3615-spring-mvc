@@ -20,5 +20,6 @@ Deposit and withdraw money.
 
 See "Domain model.pdf" for model relationships
 
-
 log4j2.xml is the default log4j2 configuration, from: https://logging.apache.org/log4j/2.x/manual/configuration.html
+
+For navigation in the application, please use the navigation menu at top of the page.
