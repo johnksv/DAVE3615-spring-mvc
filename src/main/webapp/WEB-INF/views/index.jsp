@@ -13,15 +13,25 @@
 
     <p>User information for login:</p>
     <p>
-        Username: user
+        Username: olanor
         <br>
         Password: hello
+    </p>
+    <p>
+        Username: kari
+        <br>
+        Password: mySecretPassword1
     </p>
 
     <a class="btn btn-primary" href="./login">Log in</a>
 
+
+    <hr>
     <p>toString of all users (for debug purposes):</p>
-    <p>${user}</p>
+
+    <c:forEach items="${user}" var="item">
+        <p>${item}</p>
+    </c:forEach>
 
 </div>
 <script>

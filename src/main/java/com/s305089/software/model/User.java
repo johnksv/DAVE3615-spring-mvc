@@ -143,13 +143,12 @@ public class User implements Serializable {
         //TODO: REMOVE PASSWORD
         return "User{" +
                 "username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", SSN='" + SSN + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", account='" + accounts.size() + '\'' +
-                ", loan='" + loans.size() + '\'' +
+                ", accounts='" + accounts.size() + '\'' +
+                ", loans='" + loans.size() + '\'' +
                 '}';
     }
 }
